@@ -3,6 +3,8 @@ import sum from './utils/sum/sum';
 import { validateName } from './utils/sum/nameValidator/validateName';
 import { validateEmail } from './utils/sum/emailValidator/validateEmail';
 import { validatePassword } from './utils/sum/passwordValidator/validatePassword';
+import { alertMessage } from './utils/sum/alertValidator/alert';
+import { invalidAlert } from './utils/sum/invalidAlertValidator/invalidAlert';
 
 // console.log('Ready for coding');
 
@@ -35,6 +37,17 @@ $('.form-container').html(`
 $('.js-form').on('submit', (event) => {
     event.preventDefault();
 
+    const nameInput = document.querySelector('.name-input');
+    const nameAttribute = nameInput.getAttribute('name');
+
+    const emailInput = document.querySelector('.email-input');
+    const emailAttribute = emailInput.getAttribute('name');
+
+
+    const passwordInput = document.querySelector('.password-input');
+    const passwordAttribute = passwordInput.getAttribute('name');
+
+
     const name = $('.name-input').val() as string;
     const email = $('.email-input').val() as string;
     const password = $('.password-input').val() as string;
@@ -44,13 +57,13 @@ $('.js-form').on('submit', (event) => {
     const isValidPassword = validatePassword(password);
 
     if (isValidName && isValidEmail && isValidPassword) {
-        alert('Success!');
+        alertMessage();
     } else if (!isValidName) {
-        alert(`Invalid name: ${name}`);
+        invalidAlert(name, nameAttribute);
     } else if (!isValidEmail) {
-        alert(`Invalid email: ${email}`);
+        invalidAlert(email, emailAttribute);
     } else if (!isValidPassword) {
-        alert(`Invalid password: ${password}`);
+        invalidAlert(password, passwordAttribute);
     }
 
     $('.name-input').val('');
